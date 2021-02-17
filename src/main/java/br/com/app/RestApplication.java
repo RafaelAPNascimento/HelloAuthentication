@@ -1,6 +1,6 @@
 package br.com.app;
 
-import br.com.app.api.rest.ServiceAPI;
+import br.com.app.api.rest.auth.AuthenticationImpl;
 import br.com.app.api.rest.resource.ServiceApiImpl;
 
 import javax.ws.rs.ApplicationPath;
@@ -14,6 +14,7 @@ public class RestApplication extends Application {
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new HashSet<Class<?>>();
         resources.add(ServiceApiImpl.class);
+        resources.add(AuthenticationImpl.class);
         return resources;
     }
 }

@@ -7,11 +7,16 @@ import br.com.app.api.rest.Authentication;
 import br.com.app.security.TokenFactory;
 
 import javax.ws.rs.core.Response;
+import java.util.logging.Logger;
 
 public class AuthenticationImpl implements Authentication {
 
+    static final Logger LOG = Logger.getLogger(AuthenticationImpl.class.getName());
+
     @Override
     public Response authenticateUser(Credentials credentials) {
+
+        LOG.info("Authentication service: "+credentials);
 
         try {
             proceedAuthentication(credentials);

@@ -1,16 +1,12 @@
 package br.com.app.api.model.auth;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@ToString
 @XmlRootElement
 public class Credentials {
 
@@ -18,4 +14,12 @@ public class Credentials {
     private String password;
     private String scope;
 
+    public Credentials() {
+    }
+
+    public Credentials(String username, String password, String scope) {
+        this.username = username;
+        this.password = password;
+        this.scope = scope;
+    }
 }

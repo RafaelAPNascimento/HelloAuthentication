@@ -23,3 +23,5 @@ Integration tests point to **http://localhost:8080/hello-authentication/api**, s
         GET /service/{name}
                  
   Check the test packages out for further details.       
+  
+  refs: https://stackoverflow.com/questions/26777083/best-practice-for-rest-token-based-authentication-with-jax-rs-and-jersey

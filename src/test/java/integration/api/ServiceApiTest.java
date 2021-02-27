@@ -2,15 +2,22 @@ package integration.api;
 
 import br.com.app.api.model.SamplePayload;
 import io.restassured.http.ContentType;
+import org.apache.http.HttpHeaders;
 import org.junit.jupiter.api.*;
 
+import static org.apache.http.HttpHeaders.AUTHORIZATION;
 import static util.Constants.BASE_URI;
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.SC_OK;
 
 @Tag("integration")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ServiceApiTest {
+public class ServiceApiTest extends AbstractTest {
+
+    @BeforeAll
+    public void init() {
+        setToken();
+    }
 
     @Test
     @DisplayName("should return 200 OK when send payload")
@@ -20,6 +27,7 @@ public class ServiceApiTest {
 
         given().baseUri(BASE_URI)
                 .basePath("/service/send")
+                .header(AUTHORIZATION, jwt.toStringForRequest())
                 .contentType(ContentType.JSON)
                 .request().body(payload)
                 .log().all()
@@ -37,6 +45,7 @@ public class ServiceApiTest {
         given().baseUri(BASE_URI)
                 .basePath("/service/{name}")
                 .pathParam("name", "hello auth")
+                .header(AUTHORIZATION, jwt.toStringForRequest())
                 .request()
                 .log().all()
                 .when()

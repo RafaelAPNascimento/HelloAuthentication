@@ -14,17 +14,18 @@ public class TokenValidation {
 
         JSONObject payload = jwt.getPayload();
         boolean isTimeValid = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC) < payload.getLong("exp");
-        boolean isSignValid = isSignatureValid(jwt);
+        boolean isSignatureValid = isSignatureValid(jwt);
 
-        return isTimeValid && isSignValid;
+        return isTimeValid && isSignatureValid;
     }
 
     private static boolean isSignatureValid(JWT jwt) {
 
         String b64Data = jwt.getB64Header() + "." + jwt.getB64Payload();
-        byte[] encryptedSignature = TokenFactory.hs256(b64Data);
-        String expected64Signature = encode(encryptedSignature);
+        byte[] bytesSignature = TokenFactory.hs256(b64Data);
 
-        return expected64Signature.equals(jwt.getSignature());
+        String expectedSignature = encode(bytesSignature);
+
+        return expectedSignature.equals(jwt.getSignature());
     }
 }

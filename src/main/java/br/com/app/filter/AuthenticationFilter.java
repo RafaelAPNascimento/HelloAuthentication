@@ -48,9 +48,8 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     private void validateToken(String authorizationHeader) throws Exception {
 
         LOG.info("Validating token...");
-        LOG.info(authorizationHeader);
+
         String accessToken = authorizationHeader.substring(7);
-        LOG.info(accessToken);
         JWT jwt = new JWT(accessToken);
 
         if (!TokenValidation.isValid(jwt))
@@ -62,7 +61,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         requestContext.abortWith(
                     Response.status(HttpStatus.SC_UNAUTHORIZED)
                             .header(HttpHeaders.WWW_AUTHENTICATE,
-                                                    AUTHENTICATION_SCHEME + "scope=" + SCOPE)
+                                                    AUTHENTICATION_SCHEME + " scope = " + SCOPE)
                             .build());
     }
 

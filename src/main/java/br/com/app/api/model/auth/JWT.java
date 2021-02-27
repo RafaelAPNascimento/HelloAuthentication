@@ -37,6 +37,7 @@ public class JWT {
     }
 
     private void decode() {
+
         String[] parts = access_token.split("\\.");
         b64Header = parts[0];
         b64Payload = parts[1];

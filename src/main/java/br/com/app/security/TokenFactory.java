@@ -60,7 +60,7 @@ public class TokenFactory {
         payload.put("scope", credentials.getScope());
         payload.put("name", credentials.getUsername());
         payload.put("iat", LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-        payload.put("exp", LocalDateTime.now().plusMinutes(2).toEpochSecond(ZoneOffset.UTC));
+        payload.put("exp", LocalDateTime.now().plusMinutes(1).toEpochSecond(ZoneOffset.UTC));
         payload.put("jti", UUID.randomUUID().toString());
 
         jwt.setPayload(payload);

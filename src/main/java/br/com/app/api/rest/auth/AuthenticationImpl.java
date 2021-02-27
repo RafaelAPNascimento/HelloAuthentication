@@ -3,13 +3,13 @@ package br.com.app.api.rest.auth;
 import br.com.app.Database;
 import br.com.app.api.model.auth.Credentials;
 import br.com.app.api.model.auth.JWT;
-import br.com.app.api.rest.Authentication;
+import br.com.app.api.rest.AuthenticationApi;
 import br.com.app.security.TokenFactory;
 
 import javax.ws.rs.core.Response;
 import java.util.logging.Logger;
 
-public class AuthenticationImpl implements Authentication {
+public class AuthenticationImpl implements AuthenticationApi {
 
     static final Logger LOG = Logger.getLogger(AuthenticationImpl.class.getName());
 

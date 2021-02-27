@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Path("/auth")
-public interface Authentication {
+public interface AuthenticationApi {
 
     @POST
     @Path("/connect/token")

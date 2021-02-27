@@ -1,10 +1,10 @@
 package integration.api;
 
+import br.com.app.api.model.SamplePayload;
 import br.com.app.api.model.auth.Credentials;
 import br.com.app.api.model.auth.JWT;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.apache.http.HttpHeaders;
 import org.junit.jupiter.api.*;
 
 import static io.restassured.RestAssured.given;
@@ -70,11 +70,7 @@ public class AuthenticationTest {
     @Order(3)
     public void shouldNotAuthorize() {
 
-        String token = jwt.getAccess_token();
-        char[] chars = token.toCharArray();
-        chars[65] = 'p';
-        token = String.valueOf(chars);
-        jwt.setAccess_token(token);
+        modifyToken();
 
         given().baseUri(BASE_URI)
                 .basePath("/service/{name}")
@@ -84,6 +80,39 @@ public class AuthenticationTest {
                 .log().all()
                 .when()
                 .get()
+                .peek()
+                .then().assertThat().statusCode(SC_UNAUTHORIZED);
+    }
+
+    private void modifyToken() {
+
+        String token = jwt.getAccess_token();
+        char[] chars = token.toCharArray();
+        chars[65] = 'p';
+        token = String.valueOf(chars);
+        jwt.setAccess_token(token);
+    }
+
+    @Test
+    @DisplayName("Should not authorize because token has expired")
+    @Order(4)
+    @Disabled
+    public void shouldNotAuthorizeDueToExpiration() throws InterruptedException {
+
+        shouldAuthenticate();
+
+        Thread.sleep(60000);
+
+        SamplePayload payload = new SamplePayload(1, "Rafael");
+
+        given().baseUri(BASE_URI)
+                .basePath("/service/send")
+                .header(AUTHORIZATION, jwt.toStringForRequest())
+                .contentType(ContentType.JSON)
+                .request().body(payload)
+                .log().all()
+                .when()
+                .post()
                 .peek()
                 .then().assertThat().statusCode(SC_UNAUTHORIZED)
                 .log().all();

@@ -12,13 +12,13 @@ public class ServiceApiImpl implements ServiceAPI {
 
     @Override
     public Response sentPayload(SamplePayload payload) {
-        LOG.info("sentPayload: "+payload);
+        LOG.info("========== sentPayload: "+payload);
         return Response.ok().build();
     }
 
     @Override
     public Response getMessage(String name) {
-        LOG.info("getMessage: "+name);
+        LOG.info("========== getMessage: "+name);
         return Response.ok().build();
     }
 }

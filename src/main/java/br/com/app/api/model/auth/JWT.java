@@ -37,7 +37,7 @@ public class JWT {
     }
 
     private void decode() {
-        String[] parts = access_token.split(".");
+        String[] parts = access_token.split("\\.");
         b64Header = parts[0];
         b64Payload = parts[1];
         payload = decodePayload(parts[1]);
@@ -54,5 +54,9 @@ public class JWT {
     public void setSignature(String signature) {
         this.access_token = b64Header +"."+ b64Payload +"."+ signature;
         this.signature = signature;
+    }
+
+    public String toStringForRequest() {
+        return token_type +" "+ access_token;
     }
 }

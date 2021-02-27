@@ -2,7 +2,6 @@ package br.com.app.filter;
 
 import br.com.app.annotations.Secured;
 import br.com.app.api.model.auth.JWT;
-import br.com.app.api.rest.resource.ServiceApiImpl;
 import br.com.app.security.TokenValidation;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
@@ -13,7 +12,6 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
-import java.io.IOException;
 import java.util.logging.Logger;
 
 @Secured
@@ -26,29 +24,38 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     private static final String AUTHENTICATION_SCHEME = "Bearer";
 
     @Override
-    public void filter(ContainerRequestContext requestContext) throws IOException {
+    public void filter(ContainerRequestContext requestContext) {
 
-        LOG.info("\n>>>>>>>>>>>> authentication filter");
+        LOG.info("authentication filter");
 
         String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 
-        if (isTokenBasedAuthentication(authorizationHeader)) {
+        if (!isTokenBasedAuthentication(authorizationHeader)) {
+            LOG.info("Not a token based authentication! Aborting request...");
             abortWithUnauthorized(requestContext);
+            return;
         }
 
         try {
             validateToken(authorizationHeader);
         }
         catch (Exception e) {
+            e.printStackTrace();
             abortWithUnauthorized(requestContext);
         }
     }
 
-    private void validateToken(String authorizationHeader) {
+    private void validateToken(String authorizationHeader) throws Exception {
 
-        String accessToken = authorizationHeader.substring(7, authorizationHeader.length());
+        LOG.info("Validating token...");
+        LOG.info(authorizationHeader);
+        String accessToken = authorizationHeader.substring(7);
+        LOG.info(accessToken);
         JWT jwt = new JWT(accessToken);
-        TokenValidation.isValid(jwt);
+
+        if (!TokenValidation.isValid(jwt))
+            throw new Exception("Invalid JWT");
+
     }
 
     private void abortWithUnauthorized(ContainerRequestContext requestContext) {
@@ -64,6 +71,6 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         if (authorizationHeader == null)
             return false;
 
-        return authorizationHeader.toLowerCase().startsWith(AUTHENTICATION_SCHEME.toLowerCase() + " ");
+        return authorizationHeader.startsWith(AUTHENTICATION_SCHEME + " ");
     }
 }

@@ -50,7 +50,7 @@ public class TokenFactoryTest {
     }
 
     @Test
-    public void tokenShouldBeInValid() {
+    public void tokenShouldNotdBeValid() {
 
         JWT jwt = TokenFactory.issueToken(credentials);
 

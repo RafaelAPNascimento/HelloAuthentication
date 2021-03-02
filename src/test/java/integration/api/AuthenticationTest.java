@@ -96,7 +96,7 @@ public class AuthenticationTest {
     @Test
     @DisplayName("Should not authorize because token has expired")
     @Order(4)
-    @Disabled
+    @Disabled("Disbled by default because this test takes 1 minute long, you can optionally enabled it")
     public void shouldNotAuthorizeDueToExpiration() throws InterruptedException {
 
         shouldAuthenticate();

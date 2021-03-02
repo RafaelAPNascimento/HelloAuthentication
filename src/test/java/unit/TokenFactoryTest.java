@@ -46,7 +46,7 @@ public class TokenFactoryTest {
     public void tokenShouldBeValid() {
 
         JWT jwt = TokenFactory.issueToken(credentials);
-        Assertions.assertTrue(TokenValidation.isValid(jwt));
+        Assertions.assertTrue(TokenValidation.isValid(jwt), "Token should be valid!");
     }
 
     @Test
@@ -58,6 +58,6 @@ public class TokenFactoryTest {
         payload.put("exp", LocalDateTime.now().plusDays(3).toEpochSecond(ZoneOffset.UTC));
         jwt.setB64Payload(Base64.getUrlEncoder().withoutPadding().encodeToString(payload.toString().getBytes(StandardCharsets.UTF_8)));
 
-        Assertions.assertFalse(TokenValidation.isValid(jwt));
+        Assertions.assertFalse(TokenValidation.isValid(jwt), "Token should be INvalid");
     }
 }

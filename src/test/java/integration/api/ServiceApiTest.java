@@ -1,5 +1,6 @@
 package integration.api;
 
+import annotations.IntegrationTest;
 import br.com.app.api.model.SamplePayload;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpHeaders;
@@ -10,7 +11,6 @@ import static util.Constants.BASE_URI;
 import static io.restassured.RestAssured.given;
 import static org.apache.http.HttpStatus.SC_OK;
 
-@Tag("integration")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ServiceApiTest extends AbstractTest {
 
@@ -19,7 +19,7 @@ public class ServiceApiTest extends AbstractTest {
         setToken();
     }
 
-    @Test
+    @IntegrationTest
     @DisplayName("should return 200 OK when send payload")
     public void test01() {
 
@@ -38,7 +38,7 @@ public class ServiceApiTest extends AbstractTest {
                 .log().all();
     }
 
-    @Test
+    @IntegrationTest
     @DisplayName("should return 200 OK when request with name path")
     public void test02() {
 

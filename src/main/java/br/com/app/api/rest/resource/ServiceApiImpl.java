@@ -19,6 +19,6 @@ public class ServiceApiImpl implements ServiceAPI {
     @Override
     public Response getMessage(String name) {
         LOG.info("========== getMessage: "+name);
-        return Response.ok().build();
+        return Response.ok(name).build();
     }
 }

@@ -1,0 +1,124 @@
+swagger: "2.0"
+info:
+  description: Ilustrando a aplicação de autenticação JWT em RESTFUL web services em java simples (sem lib de terceiros).
+  version: 1.0.0
+  title:  Hello Authentication
+host: localhost:8080
+basePath: /hello-authentication/api
+tags:
+  - name:  Hello Authentication
+
+
+paths:
+  /auth/connect/token:
+    post:
+      tags:
+        - Autenticação
+      summary: Consultar a certidão negativa por cpf
+      operationId: emitirCertidaoNegativaCPF
+      consumes:
+        - "application/json; charset=UTF-8"
+      parameters:
+
+        - in: body
+          name: credenciais
+          required: false
+          description: Credenciais do usuário para solicitar o token JWT
+          schema:
+            $ref: '#/definitions/Credentials'
+
+      responses:
+        200:
+          description: Quando as credenciais são válidas e um token JWT é retornado.
+          schema:
+            $ref: '#/definitions/JWT'
+        403:
+          description: Quando as credenciais apresentadas são inválidas.
+
+  /service/send:
+    post:
+      tags:
+        - Serviços
+      summary: enviar
+      consumes:
+        - "application/json; charset=UTF-8"
+      parameters:
+        - in: body
+          name: Sample payload
+          required: true
+          description: Payload exemplo
+          schema:
+            $ref: '#/definitions/SamplePayload'
+
+        - in: header
+          type: "string"
+          name: authorization
+          description: "bearer token"
+
+      responses:
+        200:
+          description: A requisição foi recebida com sucesso.
+        401:
+          description: JWT inválido ou expirado.
+
+
+  /service/{name}/:
+    get:
+      tags:
+        - Serviços
+      summary: get message
+      produces:
+        - "text/plain; charset=UTF-8"
+
+      parameters:
+        - in: path
+          name: name
+          required: true
+          type: string
+
+      responses:
+        200:
+          description: retorna a string enviada no path
+        401:
+          description: JWT inválido ou expirado..
+
+
+securityDefinitions:
+  autenticador_sp_gov_br:
+    type: oauth2
+    tokenUrl: http://localhost:8080/hello-authentication/api/auth/connect/token
+    flow: application
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+
+definitions:
+
+  Credentials:
+    type: object
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+      scope:
+        type: string
+
+  JWT:
+    type: object
+    properties:
+      access_token:
+        type: string
+      expires_in:
+        type: string
+      token_type:
+        type: string
+
+  SamplePayload:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string

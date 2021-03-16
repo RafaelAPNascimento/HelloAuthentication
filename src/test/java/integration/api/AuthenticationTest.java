@@ -41,7 +41,8 @@ public class AuthenticationTest {
                 .body(credentials)
                 .log().all()
                 .when().post()
-                .peek();
+                .then().log().all()
+                .extract().response() ;
 
         jwt = response.jsonPath().getObject("$", JWT.class);
         Assertions.assertNotNull(jwt);

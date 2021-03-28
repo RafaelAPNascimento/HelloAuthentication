@@ -1,5 +1,6 @@
 package integration.api;
 
+import annotations.IntegrationTest;
 import br.com.app.api.model.SamplePayload;
 import br.com.app.api.model.auth.Credentials;
 import br.com.app.api.model.auth.JWT;
@@ -13,7 +14,6 @@ import static org.apache.http.HttpStatus.SC_OK;
 import static org.apache.http.HttpStatus.SC_UNAUTHORIZED;
 import static util.Constants.BASE_URI;
 
-@Tag("integration")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AuthenticationTest {
@@ -27,7 +27,7 @@ public class AuthenticationTest {
         credentials = new Credentials("daniel", "78910", "read_only");
     }
 
-    @Test
+    @IntegrationTest
     @Order(1)
     public void shouldAuthenticate() {
 
@@ -49,7 +49,7 @@ public class AuthenticationTest {
     }
 
 
-    @Test
+    @IntegrationTest
     @Order(2)
     public void shouldBeAuthorizedByJWT() {
 
@@ -66,7 +66,7 @@ public class AuthenticationTest {
                 .log().all();
     }
 
-    @Test
+    @IntegrationTest
     @DisplayName("Should not authorize after modifying the token")
     @Order(3)
     public void shouldNotAuthorize() {
@@ -94,7 +94,7 @@ public class AuthenticationTest {
         jwt.setAccess_token(token);
     }
 
-    @Test
+    @IntegrationTest
     @DisplayName("Should not authorize because token has expired")
     @Order(4)
     @Disabled("Disbled by default because this test takes 1 minute long, you can optionally enabled it")

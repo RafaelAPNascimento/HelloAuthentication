@@ -3,13 +3,14 @@ package integration.api;
 import annotations.IntegrationTest;
 import br.com.app.api.model.SamplePayload;
 import io.restassured.http.ContentType;
-import org.apache.http.HttpHeaders;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.TestInstance;
 
-import static org.apache.http.HttpHeaders.AUTHORIZATION;
-import static util.Constants.BASE_URI;
 import static io.restassured.RestAssured.given;
+import static org.apache.http.HttpHeaders.AUTHORIZATION;
 import static org.apache.http.HttpStatus.SC_OK;
+import static util.Constants.BASE_URI;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ServiceApiTest extends AbstractTest {

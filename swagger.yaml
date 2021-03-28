@@ -14,8 +14,7 @@ paths:
     post:
       tags:
         - Autenticação
-      summary: Consultar a certidão negativa por cpf
-      operationId: emitirCertidaoNegativaCPF
+      summary: verifica credenciais do usário e retorna um token caso sejam válidas
       consumes:
         - "application/json; charset=UTF-8"
       parameters:

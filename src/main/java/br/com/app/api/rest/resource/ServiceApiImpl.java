@@ -1,6 +1,7 @@
 package br.com.app.api.rest.resource;
 
 import br.com.app.api.model.SamplePayload;
+import br.com.app.api.model.ValidNames;
 import br.com.app.api.rest.ServiceAPI;
 
 import javax.ws.rs.core.Response;
@@ -17,8 +18,8 @@ public class ServiceApiImpl implements ServiceAPI {
     }
 
     @Override
-    public Response getMessage(String name) {
+    public Response getMessage(ValidNames name) {
         LOG.info("========== getMessage: "+name);
-        return Response.ok(name).build();
+        return Response.ok("Hello, " +name).build();
     }
 }

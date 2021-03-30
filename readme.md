@@ -1,4 +1,4 @@
-Plain Java JAX-RS (resteasy) with JWT authentication example.
+Plain Java JAX-RS (resteasy) with JWT authentication example (https://finalexception.blogspot.com/2021/03/atenticacao-jwt-com-java-simples-parte-1.html).
 
 #### Unit Tests
     mvn test

@@ -18,7 +18,6 @@ import static util.Constants.BASE_URI;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AuthenticationTest {
 
-
     private static Credentials credentials;
     private JWT jwt;
 

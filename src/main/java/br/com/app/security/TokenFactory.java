@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class TokenFactory {
 
-    // secret should never be stored in plain text
+    // secrets should never be placed in code
     final static String SECRET_KEY = "qwertyuiopasdfghjklzxcvbnm0123456789";
     final static String ISSUER = "rafael.senior.engineer";
     final static String HEADER = "{\"alg\":\"HS256\", \"typ\":\"jwt\"}";

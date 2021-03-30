@@ -45,7 +45,7 @@ public class ServiceApiTest extends AbstractTest {
 
         given().baseUri(BASE_URI)
                 .basePath("/service/{name}")
-                .pathParam("name", "hello auth")
+                .pathParam("name", "LUCAS")
                 .header(AUTHORIZATION, jwt.toStringForRequest())
                 .request()
                 .log().all()

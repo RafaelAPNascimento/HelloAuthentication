@@ -54,7 +54,7 @@ public class AuthenticationTest {
 
         given().baseUri(BASE_URI)
                 .basePath("/service/{name}")
-                .pathParam("name", "hello auth")
+                .pathParam("name", "RAFAEL")
                 .header(AUTHORIZATION, jwt.toStringForRequest())
                 .request()
                 .log().all()

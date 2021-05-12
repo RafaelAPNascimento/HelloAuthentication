@@ -1,0 +1,41 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello-authentication-service
+spec:
+  selector:
+    app: hello-authentication
+  ports:
+    - protocol: "TCP"
+      # port accessible inside cluster
+      port: 8081
+      # port to forward to inside pod
+      targetPort: 8080
+      # port accessible outside the cluster
+      # whenever I hit this port, it will forward the request to the 'targetPort', which is the port to forward to the pod specified in 'selector.app'
+      nodePort: 30001
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-authentication-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-authentication
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: hello-authentication
+        tier: backend
+    spec:
+      containers:
+        - name: hello-authentication
+          image: rafaelnasc1mento/hello-authentication:1.0
+          ports:
+            - containerPort: 8080

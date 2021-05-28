@@ -5,6 +5,7 @@ import br.com.app.api.model.SamplePayload;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.TestInstance;
 
 import static io.restassured.RestAssured.given;
@@ -22,6 +23,7 @@ public class ServiceApiTest extends AbstractTest {
 
     @IntegrationTest
     @DisplayName("should return 200 OK when send payload")
+    //@RepeatedTest(10)
     public void test01() {
 
         SamplePayload payload = new SamplePayload(1, "Rafael");
@@ -41,6 +43,7 @@ public class ServiceApiTest extends AbstractTest {
 
     @IntegrationTest
     @DisplayName("should return 200 OK when request with name path")
+    //@RepeatedTest(10)
     public void test02() {
 
         given().baseUri(BASE_URI)

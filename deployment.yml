@@ -19,6 +19,7 @@ spec:
 
 ---
 apiVersion: apps/v1
+# a deployment defines the desired state of our application
 kind: Deployment
 metadata:
   name: hello-authentication-deployment
@@ -26,6 +27,7 @@ spec:
   replicas: 3
   selector:
     matchLabels:
+      # name that's refereed by the load-balancer or other components inside the cluster
       app: hello-authentication
       tier: backend
   template:
@@ -35,7 +37,9 @@ spec:
         tier: backend
     spec:
       containers:
+        # container name
         - name: hello-authentication
+          # docker image at docker-hub
           image: rafaelnasc1mento/hello-authentication:1.0
           ports:
             - containerPort: 8080
